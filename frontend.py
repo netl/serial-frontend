@@ -11,13 +11,13 @@ display = Tk()
 
 def callback():
 	print("pressed!")
-	ser.write("LEL")
+	ser.write("pressed/n")
 
-b = Button(display, text="hello", command=callback())
+b = Button(display, text="hello", command=callback, height=5, width=10)
 b.pack()
 
 print("ready")
 
-mainloop()
+display.mainloop()
 
 ser.close()
