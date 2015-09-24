@@ -7,6 +7,8 @@ python serial: http://pyserial.sourceforge.net/
 python graphics: http://effbot.org/tkinterbook/
 
 http://www.waveshare.com/wiki/4inch_RPi_LCD_(A)
+https://github.com/notro/fbtft/issues/215#issuecomment-71336679
+
 rotation for touch screen
 in /etc/modules
 change 'rotate' from 90 to 0

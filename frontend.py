@@ -6,7 +6,7 @@ variable = 100
 class App:
 	def __init__(self,master):
 
-		frame = Frame(master, height=100, width=400)
+		frame = Frame(master, height=400, width=320)
 		frame.pack_propagate(0)
 		frame.pack()
 
@@ -18,16 +18,16 @@ class App:
 		self.v.set(variable)
 
 		self.button = Button(frame, text="quit", command=frame.quit)
-		self.button.pack(side=LEFT, fill=BOTH, expand =1)
+		self.button.pack(side=TOP, fill=BOTH, expand =1)
 
 		self.send = Button(frame, text="send", command=self.send_cmd)
-		self.send.pack(side=LEFT, fill=BOTH, expand =1)
+		self.send.pack(side=TOP, fill=BOTH, expand =1)
 		
 		self.increment = Button(frame, text="+100", command=self.inc_variable)
-		self.increment.pack(side=LEFT, fill=BOTH, expand =1)
+		self.increment.pack(side=TOP, fill=BOTH, expand =1)
 		
 		self.decrement = Button(frame, text="-100", command=self.dec_variable)
-		self.decrement.pack(side=LEFT, fill=BOTH, expand =1)
+		self.decrement.pack(side=TOP, fill=BOTH, expand =1)
 		
 	def inc_variable(self):
 		global variable
@@ -47,6 +47,9 @@ class App:
 ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 root = Tk()
+w, h = root.winfo_screenwidth(), root.winfo_screenheight()
+root.overrideredirect(1)
+root.geometry("%dx%d+0+0" % (w, h))
 
 app = App(root)
 
