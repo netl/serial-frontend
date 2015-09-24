@@ -6,3 +6,13 @@ raspberry serial: http://elinux.org/RPi_Serial_Connection
 python serial: http://pyserial.sourceforge.net/
 python graphics: http://effbot.org/tkinterbook/
 
+http://www.waveshare.com/wiki/4inch_RPi_LCD_(A)
+rotation for touch screen
+in /etc/modules
+change 'rotate' from 90 to 0
+
+and in init=[...] ...0x36,0x28... to ...0x36,0x48...
+
+recalibrate touch screen
+dpkg -i xinput_calibrator
+
