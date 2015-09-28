@@ -12,9 +12,11 @@ https://github.com/notro/fbtft/issues/215#issuecomment-71336679
 rotation for touch screen
 in /etc/modules
 change 'rotate' from 90 to 0
-
 and in init=[...] ...0x36,0x28... to ...0x36,0x48...
 
 recalibrate touch screen
 dpkg -i xinput_calibrator
 
+in /etc/lightdm/lightdm.conf
+under [SeatDefault]
+add xserver-command=X -s 0 dpms
