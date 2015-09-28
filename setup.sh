@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo adduser pi tty
-cp ./frontend.sh ~/Desktop/frontend.sh
+cp ./frontend.sh /home/pi/Desktop/frontend.sh
 wget http://netl.fi/file/LCD-show-150602.tar.gz
 gunzip LCD-show-150602.tar.gz
 tar -xvf LCD-show-150602.tar
