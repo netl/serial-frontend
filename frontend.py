@@ -26,7 +26,7 @@ def clear_buttons(event):
 
 def graph_results():
 	for x in xrange(0,40):
-		canv.coords(canv.graph[x],x*12,350-x,(x+1)*12,350-(x+1))
+		canv.coords(canv.graph[x],x*12,333-x,(x+1)*12,333-(x+1))
 
 def read_serial():
 	while ser.inWaiting():
@@ -36,33 +36,49 @@ def read_serial():
 #setup
 ser = serial.Serial('/dev/ttyAMA0', 115200)
 root = Tk()
-w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-root.overrideredirect(1)
+#w, h = root.winfo_screenwidth(), root.winfo_screenheight()
+w = 480
+h = 800
+#root.overrideredirect(1)
 root.geometry("%dx%d+0+0" % (w, h))
 
 loadstatus = 1 #guessing the tray is in
+controlResult = 1000000
+testResult = 2220000
+
 
 #images
 tausta = PhotoImage(file="~/serial-frontend/labrox/tausta.gif")
 image_start = PhotoImage(file="~/serial-frontend/labrox/start.gif")
 image_tray = PhotoImage(file="~/serial-frontend/labrox/tray.gif")
-image_start_pressed = PhotoImage(file="~/serial-frontend/labrox/start_pressed.gif")
-image_tray_pressed = PhotoImage(file="~/serial-frontend/labrox/tray_pressed.gif")
+image_start_pressed = PhotoImage(file="~/serial-frontend/labrox/start_pressed2.gif")
+image_tray_pressed = PhotoImage(file="~/serial-frontend/labrox/tray_pressed2.gif")
 
 #create canvas and objects
 canv = Canvas(root, width=w, height=h)
 canv.create_image(0,0, image=tausta, anchor='nw')
-buttonStart = canv.create_image(45, 549, image=image_start, anchor='nw')
-buttonTray = canv.create_image(45, 670, image=image_tray, anchor='nw')
+
+#buttons
+buttonStart = canv.create_image(45, 634, image=image_start, anchor='sw')
+buttonTray = canv.create_image(45, 755, image=image_tray, anchor='sw')
+
+#text
+font = tkFont.Font(family="Roboto", size=24)
+canv.create_text(93, 425, text="Control:", font=font, fill="white", anchor='sw')
+canv.create_text(93, 461, text="Test:", font=font, fill="white", anchor='sw')
+canv.create_text(93, 497, text="T/C ratio:", font=font, fill="white", anchor='sw')
+textControl = canv.create_text(240, 425, text="1 000 000", font=font, fill="white", anchor='sw')
+textResult = canv.create_text(240, 461, text="2 220 000", font=font, fill="white", anchor='sw')
+textRatio = canv.create_text(240, 497, text=float(testResult)/float(controlResult), font=font, fill="white", anchor='sw')
 
 #draw graphs
 canv.graph = range(41)
 for x in xrange(0,40):
-	canv.graph[x] = canv.create_line(x*12,350,(x+1)*12,350,fill="green",width=3)
+	canv.graph[x] = canv.create_line(x*12,333,(x+1)*12,333,fill="#bfce00",width=3)
 
 #bind events
-#canv.end = Button(root, text="quit", command=quit)
-#canv.end.place(x=15, y=15, width=30, height=30)
+canv.end = Button(root, text="quit", command=quit)
+canv.end.place(x=15, y=15, width=30, height=30)
 canv.tag_bind(buttonStart, '<ButtonPress-1>', cmd_start)
 canv.tag_bind(buttonTray, '<ButtonPress-1>', cmd_tray)
 canv.tag_bind(buttonStart, '<ButtonRelease-1>', clear_buttons)
